@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Design Your own Hogwarts!</title>
+    <style type="text/css">
+      #rightcolumn, #leftcolumn{
+        float: left;
+      }
+
+      #rightcolumn{
+        width: 70%;
+        
+      }
+
+      #leftcolumn{
+        width: 30%;
+        
+        box-sizing: border-box;
+      }
+
+     
+
+
+      #mapblock {
+        width: 320px;
+        height: 320px;
+        border: 2px solid black;
+
+      }
+
+      .hidden {
+        display: hidden;
+      }
+
+      .selected {
+        
+        border: 2px solid yellow;
+      }
+
+      .block {
+        width: 32px;
+        height: 32px;
+        border: 1px solid black;
+        float: left;
+        box-sizing: border-box;
+        border: hidden;
+      }
+
+      .block:hover {
+        outline: 2px solid red;
+
+      }
+
+      .tile {
+        margin-right: 3px;
+      }
+
+      
+
+
+    </style>
+  </head>
+
+  <body>
+    <h1>Design Your Own Hogwarts!</h1>
+
+
+
+    <div id="leftcolumn">
+      <div id="mapblock"></div>
+    </div>
+
+    <div id="rightcolumn">
+      <p>Click on a tile here to select it. Then click on the map to the left to place the tile.</p>
+      <hr class="solid">
+    </div>
+
+
+    <!-- load in the image array file - this makes available a new array of all image filenames that you can use for this project -->
+    <!-- Assets courtesy of Crawl Stone Soup: https://github.com/crawl/tiles -->
+    <script src="image_array.js"></script>
+    <script>
+
+      let rightcolumn = document.getElementById('rightcolumn')
+      let leftcolumn = document.getElementById('leftcolumn')
+      let mapblock = document.getElementById('mapblock')
+      let currentsrc
+      
+      for (let i = 0; i < array_library.length;i++){
+        let img = document.createElement('img')
+        img.src = array_library[i]
+        img.style.height = '32px'
+        img.style.width = '32px'
+        //img.style.marginRight = '3px'
+        img.classList.add('tile')
+        rightcolumn.appendChild(img)
+        console.log(img)
+      }
+
+      let tile = document.querySelectorAll('.tile')
+
+      for (let i = 0; i < 100; i++){
+        let blockDiv = document.createElement('div')
+        blockDiv.classList.add('block')
+        mapblock.appendChild(blockDiv)
+      }
+
+      //console.log(array_library)
+      console.log(tile)
+      let current
+      for (let i = 0; i < tile.length; i++){
+        tile[i].onclick = function(event){
+          if(document.querySelectorAll('.selected').length != 0){
+
+            current.classList.remove('selected')
+          }
+          currentsrc = event.currentTarget.src
+          current = event.currentTarget
+          console.log(currentsrc)
+          console.log(current)
+          
+          event.currentTarget.classList.add('selected')
+          console.log(event.currentTarget.classList)
+        }
+
+      }
+      rightcolumn.onclick = function(event){
+        //console.log(event.currentTarget)
+        //if (event.currentTarget)
+      }
+
+     
+
+      let block = document.querySelectorAll('.block')
+
+      for (let i = 0; i < block.length; i++){
+        block[i].onclick = function(event){
+          event.currentTarget.style.backgroundImage = `url(${currentsrc})`
+        }
+      }
+
+
+    </script>
+
+
+  </body>
+</html>
